@@ -1,25 +1,17 @@
+WholesaleCustomersData = read.csv("WholesaleCustomersData.csv", header = TRUE)
 
-WholesaleCustomersData = read.csv("WholesaleCustomersData.csv", header = FALSE)
-wholesale = WholesaleCustomersData[-1,]
-region = WholesaleCustomersData[-1, 1]
+names(WholesaleCustomersData) = c("Region", "Fresh", "Milk", "Grocery", "Frozen", "Detergents_Paper", "Delicassen")
 
-names(wholesale) = c("Region", "Fresh", "Milk", "Grocery", "Frozen", "Detergents_Paper", "Delicassen")
-View(region)
-#values = wholesale[-1,-1]
-#View(wholesale_customers_data)
+values = WholesaleCustomersData[, -1]
 
-# Compute fuzzy clustering
-#library(e1071)
-#set.seed(123)
+data <- na.omit(values) # Remove missing values (NA)
+data <- scale(data) # Scale variables
 
-# Load the data
-#data("USArrests")
-#View(USArrests)
+library(cluster)
+library(ggplot2)
+library(factoextra)
+library(e1071)
 
-#ss <- sample(1:50, 20)
-#df <- scale(USArrests[ss,])
-
-# Compute fuzzy clustering
-#library(e1071)
-#cm <- cmeans(df, 4)
-#cm
+cm <- cmeans(data, 3, 50, method = "cmeans")
+#plot(data, col = cm$cluster)
+fviz_cluster(list(data = data, cluster = cm$cluster))
