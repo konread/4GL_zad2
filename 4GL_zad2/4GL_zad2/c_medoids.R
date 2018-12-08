@@ -23,6 +23,9 @@ library(dbscan)
 # metric:    Metryki odleg³oœci, które maj¹ byæ u¿ywane. Dostêpne opcje to "euclidean" i "manhattan".
 # stand:     Wartoœæ logiczna: jeœli true, zmienne(kolumny) wx s¹ standaryzowane przed obliczeniem odmiennoœci. Ignorowane, gdy x jest macierz¹ odmiennoœci.
 
-res.pam <- pam(data, 3, metric = "euclidean", stand = FALSE)
+k = 3
+metric = "manhattan"
 
-fviz_cluster(object = res.pam, data = data, stand = FALSE, frame.type = "norm")# + xlim(-0.2, -0.05) + ylim(-0.3, 0.6)
+res.pam <- pam(data, k, metric = metric, stand = FALSE)
+
+fviz_cluster(object = res.pam, data = data, stand = FALSE, main = paste("C-MEDOIDS / ", "k = ", k, " / metric = " , metric), geom = "point") # + xlim(-0.2, -0.05) + ylim(-0.3, 0.6)

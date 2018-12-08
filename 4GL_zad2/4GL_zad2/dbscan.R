@@ -22,12 +22,13 @@ library(dbscan)
 # eps:      Maksymalna odleg³oœæ zasiêgu
 # MinPts:   Osi¹galna minimalna liczba punktów
 # scale:    Jeœli TRUE, dane zostan¹ przeskalowane
-# method:   Mo¿liwe wartoœci to:
-#
-#           dist:       Traktuje dane jako macierz odleg³oœci
-#           raw:        traktuje dane jako nieprzetworzone dane
-#           hybrid:     Oczekuj równie¿ danych surowych, ale oblicza macierze na czêœciow¹ odleg³oœæ
 
-res.dbscan <- dbscan(data, eps = 0.6, minPts = 5, method = "raw")
+eps = 1.8
+minPts = 5
 
-fviz_cluster(object = res.dbscan, data = data, stand = FALSE, frame.type = "norm")# + xlim(-5, 2) + ylim(-5, 2)
+res.dbscan <- dbscan::dbscan(data, eps = eps, minPts = minPts)
+
+fviz_cluster(object = res.dbscan, data = data, main = paste("DBSCAN / ", "eps = ", eps, " / minPts = ", minPts), geom = "point")# + xlim(-5, 2) + ylim(-5, 2)
+
+#dbscan::kNNdistplot(data, 5)
+#abline(h = 1.8)
